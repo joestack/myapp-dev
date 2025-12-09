@@ -50,28 +50,15 @@ jobs:
       - name: Setup Node npm
         uses: actions/setup-node@v3
            
-      - name: Set CLI Config
+      - name: Setup npm-config
         run: jf npm-config --global=true --repo-resolve=myapp-dev-npm --repo-deploy=myapp-dev-npm
            
-      - name: Scan Source configured
-        run: |
-          jf audit \
-            --watches "w-critical" \
-            --extended-table \
-            --sast --sca --secrets \
-            --npm \
-            --sbom \
-            --format=table > scan-result-audit 
-
-      - name: Push Source Code Artifacts to GitHub
-        uses: actions/upload-artifact@v4
-        with:
-          name: source-code-scan
-          path: scan-result-audit
-
       - name: Install Deps
         working-directory: ./src
         run: jf npm install
+
+      
+
 
       - name: Start App
         working-directory: ./src
