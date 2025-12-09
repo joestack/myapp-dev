@@ -47,6 +47,12 @@ jobs:
           username: ${{ steps.setup-cli.outputs.oidc-user }}
           password: ${{ steps.setup-cli.outputs.oidc-token }}
 
+      - name: Setup Node npm
+        uses: actions/setup-node@v3
+           
+      - name: Set CLI Config
+        run: jf npm-config --global=true --repo-resolve=myapp-dev-npm --repo-deploy=myapp-dev-npm
+           
       - name: Scan Source configured
         run: |
           jf audit \
@@ -63,13 +69,6 @@ jobs:
           name: source-code-scan
           path: scan-result-audit
 
-
-      - name: Setup Node npm
-        uses: actions/setup-node@v3
-           
-      - name: Set CLI Config
-        run: jf npm-config --global=true --repo-resolve=myapp-dev-npm --repo-deploy=myapp-dev-npm
-           
       - name: Install Deps
         working-directory: ./src
         run: jf npm install
