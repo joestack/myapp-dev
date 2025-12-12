@@ -28,7 +28,7 @@ jobs:
         uses: actions/setup-node@v3
            
       - name: Setup npm-config
-        run: jf npm-config --global=true --repo-resolve=myapp-npm --repo-deploy=myapp-npm
+        run: jf npm-config --global=true --repo-resolve=myapp-npm-dev-remote --repo-deploy=myapp-npm-dev-local
            
       - name: Install Deps
         working-directory: ./src
