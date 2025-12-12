@@ -1,5 +1,0 @@
-version: 1
-type: npm
-resolver:
-    repo: nodejs-demo-npm
-    serverId: joefrog.jfrog.io
