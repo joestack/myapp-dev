@@ -114,11 +114,12 @@ jobs:
         #working-directory: ./src
         run: |
           # Collect environment variables for the build
-          jf rt build-collect-env
+          jf rt build-collect-env --project=myapp
           # Collect VCS details from git and add them to the build
-          jf rt build-add-git
+          jf rt build-add-git --project=myapp
           # Publish build info
-          jf rt build-publish --detailed-summary --env-include="*" --project=myapp
+          ##jf rt build-publish --detailed-summary --env-include="*" --project=myapp
+          jf rt build-publish --detailed-summary --project=myapp
 
       - name: Wait 30s for Indexing
         run: |
