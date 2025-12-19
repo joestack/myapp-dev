@@ -33,6 +33,8 @@ jobs:
         id: setup-cli
         env:
           JF_URL: ${{ vars.JF_URL }}
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
+          #JFROG_CLI_LOG_LEVEL: DEBUG
         with:
           oidc-provider-name: joestack/myapp-dev@github
 
@@ -51,15 +53,12 @@ jobs:
         uses: actions/setup-node@v3
            
       - name: Setup npm-config
-        run: jf npm-config --global=true --repo-resolve=myapp-dev-npm --repo-deploy=myapp-dev-npm
+        run: jf npm-config --global=true --repo-resolve=myapp-npm-dev-remote --repo-deploy=myapp-npm-dev-local
            
       - name: Install Deps
         working-directory: ./src
         run: jf npm install
-
-      
-
-
+    
       - name: Start App
         working-directory: ./src
         run: |
@@ -74,44 +73,44 @@ jobs:
         working-directory: ./src
         run: jf npm publish
 
-      - name: Build Docker Image
-        working-directory: ./
-        env:
-          IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
-        run: |
-          jf docker build -t $IMAGE_NAME .
+      # - name: Build Docker Image
+      #   working-directory: ./
+      #   env:
+      #     IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
+      #   run: |
+      #     jf docker build -t $IMAGE_NAME .
 
-      - name: Collect Docker Build Environment
-        run: jf rt bce 
+      # - name: Collect Docker Build Environment
+      #   run: jf rt bce 
 
-      - name: Scan Docker Image
-        working-directory: ./
-        env:
-          IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
-        run: |
-          jf docker scan $IMAGE_NAME \
-            --format=json  > scan-result-image.json \
-            --watches "w-critical" \
-            --detailed-summary \
-            --licenses
+      # - name: Scan Docker Image
+      #   working-directory: ./
+      #   env:
+      #     IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
+      #   run: |
+      #     jf docker scan $IMAGE_NAME \
+      #       --format=json  > scan-result-image.json \
+      #       --watches "w-critical" \
+      #       --detailed-summary \
+      #       --licenses
 
-      - name: Push Docker Image
-        working-directory: ./
-        env:
-          IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
-        run: |
-          jf docker push $IMAGE_NAME
+      # - name: Push Docker Image
+      #   working-directory: ./
+      #   env:
+      #     IMAGE_NAME: joefrog.jfrog.io/myapp-dev-docker/myapp-image:${{ github.run_number }}
+      #   run: |
+      #     jf docker push $IMAGE_NAME
 
 
-      - name: Push Scan Artifacts to GitHub
-        uses: actions/upload-artifact@v4
-        with:
-          name: scan-results-image
-          path: scan-result-image.json
+      # - name: Push Scan Artifacts to GitHub
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: scan-results-image
+      #     path: scan-result-image.json
 
 
       - name: Publish Build info With JFrog CLI
-        working-directory: ./src
+        #working-directory: ./src
         run: |
           # Collect environment variables for the build
           jf rt build-collect-env
