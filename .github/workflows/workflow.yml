@@ -72,7 +72,7 @@ jobs:
          
       - name: Publish
         working-directory: ./src
-        run: jf npm publish
+        run: jf npm publish --project=myapp
 
       # - name: Build Docker Image
       #   working-directory: ./
