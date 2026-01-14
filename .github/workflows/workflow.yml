@@ -140,9 +140,9 @@ jobs:
           ##jf rt build-publish --detailed-summary --env-include="*" --project=myapp
           jf rt build-publish --detailed-summary --project=myapp
 
-      - name: Wait 30s for Indexing
-        run: |
-          sleep 30
+      # - name: Wait 30s for Indexing
+      #   run: |
+      #     sleep 30
 
       - name: Buld scan
         run: |
