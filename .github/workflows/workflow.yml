@@ -38,6 +38,7 @@ jobs:
           JFROG_CLI_LOG_LEVEL: DEBUG
         with:
           oidc-provider-name: joestack/myapp-dev@github
+          version: 2.81.0
 
       - name: JFrog CLI Test
         run: |
