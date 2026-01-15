@@ -74,11 +74,16 @@ jobs:
            
       - name: Setup npm-config
         run: jf npm-config --global=true --repo-resolve=myapp-npm-dev-remote --repo-deploy=myapp-npm-dev-local
-           
+                      
       - name: Install Deps
         working-directory: ./src
         run: jf npm install
     
+      - name: debug
+        working-directory: ./src
+        run: |
+          cat .npmrc
+
       - name: Start App
         working-directory: ./src
         run: |
