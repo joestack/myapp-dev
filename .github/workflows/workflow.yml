@@ -78,8 +78,14 @@ jobs:
       - name: Install Deps
         working-directory: ./src
         run: jf npm install
-    
+
       - name: debug
+        if: always()  
+        working-directory: ./
+        run: |
+          cat .npmrc
+
+      - name: debug2
         if: always()  
         working-directory: ./src
         run: |
