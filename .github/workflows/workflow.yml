@@ -80,6 +80,7 @@ jobs:
         run: jf npm install
     
       - name: debug
+        if: always()  
         working-directory: ./src
         run: |
           cat .npmrc
