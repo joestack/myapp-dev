@@ -20,6 +20,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
     env:
       NPM_TOKEN: ${{ secrets.DEBUG_TOKEN }}
     # strategy:
@@ -78,33 +81,33 @@ jobs:
         run: jf npm-config --global=true --repo-resolve=myapp-npm-dev-remote --repo-deploy=myapp-npm-dev-local
                       
       - name: Install Deps
-        working-directory: ./src
+        #working-directory: ./src
         run: jf npm install
 
       - name: debug
         if: always()  
-        working-directory: ./
+        #working-directory: ./
         run: |
           cat .npmrc
 
       - name: debug2
         if: always()  
-        working-directory: ./src
+        #working-directory: ./src
         run: |
           cat .npmrc
 
       - name: Start App
-        working-directory: ./src
+        #working-directory: ./src
         run: |
            npm start &
            npx wait-on http://localhost:3000 -t 30000
            
       - name: Run tests
-        working-directory: ./src
+        #working-directory: ./src
         run: npm test
          
       - name: Publish
-        working-directory: ./src
+        #working-directory: ./src
         run: jf npm publish #--project=myapp
 
       # - name: Build Docker Image
