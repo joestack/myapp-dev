@@ -57,21 +57,21 @@ jobs:
           password: ${{ steps.setup-cli.outputs.oidc-token }}
 
 
-      - name: Scan Source configured
-        run: |
-          jf audit \
-            --watches "w-critical" \
-            --extended-table \
-            --sast --sca --secrets \
-            --npm \
-            --sbom \
-            --format=table > scan-result-audit 
+      # - name: Scan Source configured
+      #   run: |
+      #     jf audit \
+      #       --watches "w-critical" \
+      #       --extended-table \
+      #       --sast --sca --secrets \
+      #       --npm \
+      #       --sbom \
+      #       --format=table > scan-result-audit 
 
-      - name: Push Source Code Artifacts to GitHub
-        uses: actions/upload-artifact@v4
-        with:
-          name: source-code-scan
-          path: scan-result-audit
+      # - name: Push Source Code Artifacts to GitHub
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: source-code-scan
+      #     path: scan-result-audit
 
 
       - name: Setup Node npm
@@ -87,17 +87,17 @@ jobs:
         #working-directory: ./src
         run: jf npm install
 
-      - name: debug
-        if: always()  
-        #working-directory: ./
-        run: |
-          cat .npmrc
+      # - name: debug
+      #   if: always()  
+      #   #working-directory: ./
+      #   run: |
+      #     cat .npmrc
 
-      - name: debug2
-        if: always()  
-        #working-directory: ./src
-        run: |
-          cat .npmrc
+      # - name: debug2
+      #   if: always()  
+      #   #working-directory: ./src
+      #   run: |
+      #     cat .npmrc
 
       - name: Start App
         #working-directory: ./src
