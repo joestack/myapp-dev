@@ -6,10 +6,10 @@ on:
   push: # Triggers scan-repo flow for every push to the specified branches
     branches:
       - main
-    paths:
-      - 'src/**'
-      - 'Dockerfile'
-      - 'README.md'
+    # paths:
+    #   - 'src/**'
+    #   - 'Dockerfile'
+    #   - 'README.md'
 
 permissions:
   pull-requests: write
@@ -20,9 +20,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
+    # defaults:
+    #   run:
+    #     working-directory: ./src
     env:
       NPM_TOKEN: ${{ secrets.DEBUG_TOKEN }}
     # strategy:
@@ -43,7 +43,7 @@ jobs:
           JFROG_CLI_LOG_LEVEL: DEBUG
         with:
           oidc-provider-name: joestack/myapp-dev@github
-          version: 2.81.0
+          #version: 2.81.0
 
       - name: JFrog CLI Test
         run: |
