@@ -79,6 +79,9 @@ jobs:
            
       - name: Setup npm-config
         run: jf npm-config --global=true --repo-resolve=myapp-npm-dev-remote --repo-deploy=myapp-npm-dev-local
+
+      - name: Curation
+        run: jf ca
                       
       - name: Install Deps
         #working-directory: ./src
